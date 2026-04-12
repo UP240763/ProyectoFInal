@@ -42,7 +42,8 @@ router.get("/filter", authMiddleware, (req, res) => {
     db.query(sql, params, (err, rows) => {
         if (err) return res.status(500).json({ message: "Error interno" });
         res.json(rows);
-    })
+    });
+});
 
 // GET /tickets/user/:id
 router.get("/user/:id", authMiddleware, (req, res) => {
@@ -53,22 +54,19 @@ router.get("/user/:id", authMiddleware, (req, res) => {
     });
 
     // GET /tickets
-    router.get("/", authMiddleware, (req, res) => {
-        const { status, priority, type_id, created_by } = req.query;
-        let sql = "SELECT t.*, u.name AS creator_name, ty.type AS type_name FROM tickets t LEFT JOIN users u ON t.created_by = u.id LEFT JOIN types ty ON t.type_id = ty.id WHERE 1=1";
-        const params = [];
-        if (status) { sql += " AND t.status = ?"; params.push(status); }
-        if (priority) { sql += " AND t.priority = ?"; params.push(priority); }
-        if (type_id) { sql += " AND t.type_id = ?"; params.push(type_id); }
-        if (created_by) { sql += " AND t.created_by = ?"; params.push(created_by); }
-        sql += " ORDER BY t.created_at DESC";
-        db.query(sql, params, (err, rows) => {
-            if (err) return res.status(500).json({ message: "Error interno" });
-            res.json(rows);
-        });
+router.get("/", authMiddleware, (req, res) => {
+    const { status, priority, type_id, created_by } = req.query;
+    let sql = "SELECT t.*, u.name AS creator_name, ty.type AS type_name FROM tickets t LEFT JOIN users u ON t.created_by = u.id LEFT JOIN types ty ON t.type_id = ty.id WHERE 1=1";
+    const params = [];
+    if (status) { sql += " AND t.status = ?"; params.push(status); }
+    if (priority) { sql += " AND t.priority = ?"; params.push(priority); }
+    if (type_id) { sql += " AND t.type_id = ?"; params.push(type_id); }
+    if (created_by) { sql += " AND t.created_by = ?"; params.push(created_by); }
+    sql += " ORDER BY t.created_at DESC";
+    db.query(sql, params, (err, rows) => {
+        if (err) return res.status(500).json({ message: "Error interno" });
+        res.json(rows);
     });
-
-    ;
 });
 
 
