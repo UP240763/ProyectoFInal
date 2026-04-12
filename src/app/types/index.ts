@@ -9,7 +9,7 @@ export type UserForm = {
   last_name: string;
   username: string;
   email: string;
-  career_id: number | '';
+  career_id: number | string;
   password: string;
   confirm_password: string;
   rol: 'user' | 'dev' | 'admin';
@@ -55,7 +55,7 @@ export type Ticket = {
 export type TicketForm = {
   title: string;
   description: string;
-  type_id: number | '';
+  type_id: number | string;
   priority: TicketPriority;
 };
 

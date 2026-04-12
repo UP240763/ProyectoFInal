@@ -1,13 +1,14 @@
 
 'use client';
 import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
-import Input from '../components/ui/input';
 import { useRouter } from 'next/navigation';
-import Router from 'next/router';
+
 
 
 import { getCareers, registerUser } from '../services/service';
 import { Career, UserForm } from '../types';
+
+
 
 interface RolOption {
     value: 'user' | 'dev' | 'admin';
@@ -40,6 +41,7 @@ export default function Register() {
     const [errors, setErrors] = useState<FormErrors>({});
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
+    const router = useRouter();
 
     useEffect(() => {
         getCareers()
@@ -84,7 +86,6 @@ export default function Register() {
             setLoading(false);
         }
     }
-
     return (
         <div style={{
             minHeight: '100vh', background: '#0f0f0f',

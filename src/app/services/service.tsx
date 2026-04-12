@@ -10,7 +10,7 @@ export interface AuthResponse {
     user: User;
 }
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:5000';
 
 function getHeaders(): HeadersInit {
     const token = localStorage.getItem('token');
@@ -45,7 +45,7 @@ export async function getProfile(): Promise<User> {
 
 // ── USERS ─────────────────────────────────────────────────────────
 export async function registerUser(data: RegisterPayload): Promise<void> {
-    const res = await fetch(`${API_URL}/register`, {
+    const res = await fetch(`${API_URL}/users`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),

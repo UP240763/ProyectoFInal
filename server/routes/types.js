@@ -2,6 +2,14 @@ const router = require("express").Router();
 const db     = require("../db");
 const { authMiddleware } = require("../middleware");
 
+// GET /categories (dentro del mismo módulo)
+router.get("/categories", (req, res) => {
+  db.query("SELECT * FROM categories", (err, rows) => {
+    if (err) return res.status(500).json({ message: "Error interno" });
+    res.json(rows);
+  });
+});
+
 router.get("/",       (req, res) => {
   db.query("SELECT * FROM types", (err, rows) => {
     if (err) return res.status(500).json({ message: "Error interno" });
@@ -35,12 +43,6 @@ router.delete("/:id", authMiddleware, (req, res) => {
   });
 });
 
-// GET /categories (dentro del mismo módulo)
-router.get("/categories", (req, res) => {
-  db.query("SELECT * FROM categories", (err, rows) => {
-    if (err) return res.status(500).json({ message: "Error interno" });
-    res.json(rows);
-  });
-});
+
 
 module.exports = router;

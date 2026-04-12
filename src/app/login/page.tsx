@@ -36,7 +36,7 @@ export default function Login() {
             localStorage.setItem('user', JSON.stringify(user));
 
             // redirige al perfil
-            router.push('/profile');
+            router.push('/perfil');
 
         } catch (err: unknown) {
             const message = err instanceof Error ? err.message : 'Error desconocido';

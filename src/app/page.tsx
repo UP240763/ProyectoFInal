@@ -1,14 +1,18 @@
-    import Register from './registro/page';
-    import Login from './login/page';
-    
+'use client';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-    function App() {
-    return (
-        <div style={{ padding: '2rem' }}>
-        
-        <Login/>
-        </div>
-    );
-    }
+export default function Home() {
+    const router = useRouter();
 
-    export default App;
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            router.push('/perfil');
+        } else {
+            router.push('/login');
+        }
+    }, []);
+
+    return <p style={{ padding: '2rem' }}>Cargando...</p>;
+}
