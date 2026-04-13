@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
-const db     = require("../db");
+const db     = require("../config/db");
 const { authMiddleware } = require("../middleware");
 
 // POST /users  (también cubre /register legacy)

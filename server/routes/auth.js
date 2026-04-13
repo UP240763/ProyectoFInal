@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const db = require("../db");
+const db = require("../config/db");
 const { authMiddleware, SECRET } = require("../middleware");
 
 // POST /auth/login
@@ -14,7 +14,7 @@ router.post("/login", (req, res) => {
         if (err) return res.status(500).json({ message: "Error interno" });
         if (!rows.length) return res.status(401).json({ message: "Credenciales incorrectas" });
 
-        const user = rows[0];
+        const user = rows[0]; //Primer resultado del arreglo
         if (!user.active) return res.status(403).json({ message: "Usuario inactivo" });
         if (user.failed_attempts >= 5)
             return res.status(403).json({ message: "Cuenta bloqueada por demasiados intentos" });
