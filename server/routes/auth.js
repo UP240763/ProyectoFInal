@@ -26,7 +26,7 @@ router.post("/login", (req, res) => {
         }
 
         db.query("UPDATE users SET failed_attempts = 0 WHERE id = ?", [user.id]);
-        const token = jwt.sign({ id: user.id, username: user.username, rol: user.rol }, SECRET, { expiresIn: "8h" });
+        const token = jwt.sign({ id: user.id, username: user.username, rol: user.rol }, SECRET, { expiresIn: "24h" });
 
         res.json({ token, user: { id: user.id, name: user.name, last_name: user.last_name, username: user.username, email: user.email, rol: user.rol } });
     });
