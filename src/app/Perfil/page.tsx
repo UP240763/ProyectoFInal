@@ -33,6 +33,14 @@ export default function PerfilPage() {
                         style={{ padding: '8px 14px', borderRadius: 6, border: '1px solid #0070f3', color: '#0070f3', background: '#fff', cursor: 'pointer' }}>
                         🎫 Tickets
                     </button>
+
+                    {user.rol === 'admin' && (
+                        <button onClick={() => router.push('/usuarios')}
+                            style={{ padding: '8px 14px', borderRadius: 6, border: '1px solid #6366f1', color: '#6366f1', background: '#fff', cursor: 'pointer' }}>
+                            👥 Usuarios
+                        </button>
+                    )}
+
                     <button onClick={() => router.push('/kpi')}
                         style={{ padding: '8px 14px', borderRadius: 6, border: '1px solid #059669', color: '#059669', background: '#fff', cursor: 'pointer' }}>
                         📊 KPI

@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const SECRET = "pokemonGO"; //estatica
 
+
 function authMiddleware(req, res, next) { // Verificar token JWT
     const header = req.headers["authorization"];
     if (!header) return res.status(401).json({ message: "Token requerido" });
@@ -12,5 +13,11 @@ function authMiddleware(req, res, next) { // Verificar token JWT
         return res.status(401).json({ message: "Token inválido" });
     }
 }
-
-module.exports = { authMiddleware, SECRET };
+function roleMiddleware(...roles) {
+    return (req, res, next) => {
+        if (!roles.includes(req.user.rol))
+            return res.status(403).json({ message: "No tienes permiso" });
+        next();
+    };
+}
+module.exports = { authMiddleware, roleMiddleware, SECRET };
